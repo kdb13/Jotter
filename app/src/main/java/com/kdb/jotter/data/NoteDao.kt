@@ -1,0 +1,26 @@
+package com.kdb.jotter.data
+
+import androidx.room.*
+import com.kdb.jotter.ui.state.NoteUiState
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface NoteDao {
+    @Query("SELECT id, content FROM note ORDER BY dateCreated DESC")
+    fun getAll(): Flow<List<NoteUiState>>
+
+    @Query("SELECT * FROM note WHERE id = :noteId")
+    suspend fun getNoteById(noteId: Long): Note
+
+    @Query("DELETE FROM note WHERE id IN (:ids)")
+    suspend fun deleteNotesById(ids: List<Long>)
+
+    @Insert
+    suspend fun insert(note: Note): Long
+
+    @Delete
+    suspend fun delete(note: Note)
+
+    @Update(entity = Note::class)
+    suspend fun updateContent(noteContent: NoteContent)
+}

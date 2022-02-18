@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.kdb.jotter.ui.viewmodels.EditNoteViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="@dimen/global_padding"
+        tools:context=".ui.views.EditNoteFragment">
+
+        <EditText
+            android:id="@+id/edit_text_note_content"
+            style="@style/Widget.Jotter.EditText.Note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_text_note_hint"
+            android:importantForAutofill="no"
+            android:text="@={viewModel.content}"
+            tools:text="@tools:sample/lorem/random" />
+    </ScrollView>
+</layout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.Jotter.EditText.Note" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:gravity">top</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+        <item name="android:inputType">text|textMultiLine|textCapSentences</item>
+    </style>
+
+    <style name="Widget.Jotter.TextView.Note" parent="Widget.MaterialComponents.TextView">
+        <item name="android:padding">@dimen/global_padding</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+        <item name="android:maxLines">@integer/note_max_lines</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Widget.Jotter.CardView.Note" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:checkable">true</item>
+<!--        <item name="checkedIcon">@null</item>-->
+    </style>
+
+    <style name="Widget.Jotter.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
+        <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
+        <item name="background">@color/material_grey_900</item>
+    </style>
+
+</resources>
