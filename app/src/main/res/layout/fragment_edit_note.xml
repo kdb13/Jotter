@@ -3,26 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.kdb.jotter.ui.viewmodels.EditNoteViewModel" />
     </data>
 
-    <ScrollView
+    <!--
+        This FrameLayout is merely used to assist in clearing the focus out of EditText, when the
+        user presses the Back key. It was not working directly by using clearFocus() on older APIs like
+        5.1.
+    -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:padding="@dimen/global_padding"
-        tools:context=".ui.views.EditNoteFragment">
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        <EditText
-            android:id="@+id/edit_text_note_content"
-            style="@style/Widget.Jotter.EditText.Note"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/edit_text_note_hint"
-            android:importantForAutofill="no"
-            android:text="@={viewModel.content}"
-            tools:text="@tools:sample/lorem/random" />
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="@dimen/global_padding"
+            tools:context=".ui.views.EditNoteFragment">
+
+            <EditText
+                android:id="@+id/edit_text_note_content"
+                style="@style/Widget.Jotter.EditText.Note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_text_note_hint"
+                android:importantForAutofill="no"
+                android:text="@={viewModel.content}"
+                tools:text="@tools:sample/lorem/random" />
+        </ScrollView>
+    </FrameLayout>
 </layout>
