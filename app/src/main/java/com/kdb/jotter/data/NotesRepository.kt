@@ -1,10 +1,10 @@
 package com.kdb.jotter.data
 
-import com.kdb.jotter.ui.state.NoteUiState
+import com.kdb.jotter.ui.state.NoteItemUiState
 import kotlinx.coroutines.flow.Flow
 
 class NotesRepository(private val noteDao: NoteDao) {
-    val allNotes: Flow<List<NoteUiState>> = noteDao.getAll()
+    val allNotes: Flow<List<NoteItemUiState>> = noteDao.getAll()
 
     suspend fun getNoteById(noteId: Long): Note = noteDao.getNoteById(noteId)
 

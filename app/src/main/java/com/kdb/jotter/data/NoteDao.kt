@@ -1,13 +1,13 @@
 package com.kdb.jotter.data
 
 import androidx.room.*
-import com.kdb.jotter.ui.state.NoteUiState
+import com.kdb.jotter.ui.state.NoteItemUiState
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
     @Query("SELECT id, content FROM note ORDER BY dateCreated DESC")
-    fun getAll(): Flow<List<NoteUiState>>
+    fun getAll(): Flow<List<NoteItemUiState>>
 
     @Query("SELECT * FROM note WHERE id = :noteId")
     suspend fun getNoteById(noteId: Long): Note

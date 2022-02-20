@@ -2,12 +2,12 @@ package com.kdb.jotter.ui.viewmodels
 
 import androidx.lifecycle.*
 import com.kdb.jotter.data.NotesRepository
-import com.kdb.jotter.ui.state.NoteUiState
+import com.kdb.jotter.ui.state.NoteItemUiState
 import kotlinx.coroutines.launch
 
 class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
 
-    val notes: LiveData<List<NoteUiState>> = repository.allNotes.asLiveData()
+    val notes: LiveData<List<NoteItemUiState>> = repository.allNotes.asLiveData()
 
     fun deleteNotes(noteIds: List<Long>) = viewModelScope.launch {
         repository.deleteNotesById(noteIds)

@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kdb.jotter.databinding.ListItemNoteBinding
-import com.kdb.jotter.ui.state.NoteUiState
+import com.kdb.jotter.ui.state.NoteItemUiState
 
 class NotesAdapter(val onNoteClicked: (Long) -> Unit) :
-    ListAdapter<NoteUiState, NotesAdapter.NoteViewHolder>(DiffCallback()) {
+    ListAdapter<NoteItemUiState, NotesAdapter.NoteViewHolder>(DiffCallback()) {
 
     // The selection tracker used to select notes
     var tracker: SelectionTracker<Long>? = null
@@ -19,7 +19,7 @@ class NotesAdapter(val onNoteClicked: (Long) -> Unit) :
     class NoteViewHolder(private val binding: ListItemNoteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(note: NoteUiState, isChecked: Boolean) {
+        fun bind(note: NoteItemUiState, isChecked: Boolean) {
             binding.note = note
             binding.cardView.isChecked = isChecked
         }
@@ -59,12 +59,12 @@ class NotesAdapter(val onNoteClicked: (Long) -> Unit) :
     fun getSelectedNotesId(): List<Long> =
         currentList.filter { tracker!!.isSelected(it.id) }.map { it.id }
 
-    private class DiffCallback : DiffUtil.ItemCallback<NoteUiState>() {
-        override fun areItemsTheSame(oldItem: NoteUiState, newItem: NoteUiState): Boolean {
+    private class DiffCallback : DiffUtil.ItemCallback<NoteItemUiState>() {
+        override fun areItemsTheSame(oldItem: NoteItemUiState, newItem: NoteItemUiState): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: NoteUiState, newItem: NoteUiState): Boolean {
+        override fun areContentsTheSame(oldItem: NoteItemUiState, newItem: NoteItemUiState): Boolean {
             return oldItem.content == newItem.content
         }
     }
