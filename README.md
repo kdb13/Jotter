@@ -15,3 +15,9 @@ The architecture is kind of messy with some work remaining in the **UI Layer**. 
 - Add, delete and edit notes
 - Share a note's textual content
 - Persist notes in a local database
+
+## Screenshots
+
+![List of notes](screenshots/notes.png)
+![Add/Edit note](screenshots/edit_note.png)
+![Select multiple notes](screenshots/select_notes.png)
