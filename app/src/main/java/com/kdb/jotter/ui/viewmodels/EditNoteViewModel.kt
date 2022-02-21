@@ -26,7 +26,7 @@ class EditNoteViewModel(
         // Load the note's content from repository
         if (!isNewNote) {
             viewModelScope.launch {
-                val note = repository.getNoteById(noteId)
+                val note = repository.getNote(noteId)
                 content.value = note.content
             }
         }
@@ -44,7 +44,7 @@ class EditNoteViewModel(
         if (isNewNote) return
 
         // Delete the current note
-        viewModelScope.launch { repository.delete(Note(id = noteId)) }
+        viewModelScope.launch { repository.deleteNote(Note(id = noteId)) }
 
         // Mark as deleted
         isDeleted = true
@@ -60,14 +60,14 @@ class EditNoteViewModel(
         // Insert the note
         viewModelScope.launch {
             // Store the ID of newly inserted note
-            noteId = repository.insert(newNote)
+            noteId = repository.addNote(newNote)
         }
     }
 
     private fun updateContent() {
         // Update the current note with new content
         val newContent = NoteContent(noteId, content.value!!)
-        viewModelScope.launch { repository.updateContent(newContent) }
+        viewModelScope.launch { repository.saveNoteContent(newContent) }
     }
 }
 

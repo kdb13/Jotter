@@ -7,10 +7,10 @@ import kotlinx.coroutines.launch
 
 class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
 
-    val notes: LiveData<List<NoteItemUiState>> = repository.allNotes.asLiveData()
+    val notes: LiveData<List<NoteItemUiState>> = repository.getAllNotes().asLiveData()
 
     fun deleteNotes(noteIds: List<Long>) = viewModelScope.launch {
-        repository.deleteNotesById(noteIds)
+        repository.deleteNotes(noteIds)
     }
 }
 

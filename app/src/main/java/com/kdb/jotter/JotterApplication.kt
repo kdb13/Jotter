@@ -2,11 +2,17 @@ package com.kdb.jotter
 
 import android.app.Application
 import com.kdb.jotter.data.AppDatabase
+import com.kdb.jotter.data.NotesLocalDataSource
 import com.kdb.jotter.data.NotesRepository
 
 class JotterApplication : Application() {
-    private val database by lazy { AppDatabase.getInstance(this) }
-
-    // Injecting the DAO into repository, for data persistence
-    val repository by lazy { NotesRepository(database.noteDao()) }
+    /*
+        Not using any kind of Dependency Injection, right now. Just creating objects and passing them
+        inside the constructors.
+     */
+    val repository by lazy {
+        val database = AppDatabase.getInstance(this)
+        val localDataSource = NotesLocalDataSource(database.noteDao())
+        NotesRepository(localDataSource)
+    }
 }
