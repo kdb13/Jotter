@@ -1,13 +1,16 @@
 package com.kdb.jotter.ui.views
 
 import android.os.Bundle
+import android.view.ActionMode
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.color.MaterialColors
 import com.kdb.jotter.R
 import com.kdb.jotter.databinding.ActivityMainBinding
 
@@ -37,4 +40,15 @@ class MainActivity : AppCompatActivity() {
         binding.topAppBar.setupWithNavController(navController, appBarConfiguration)
     }
 
+    override fun onActionModeStarted(mode: ActionMode?) {
+        super.onActionModeStarted(mode)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+    }
+
+    override fun onActionModeFinished(mode: ActionMode?) {
+        super.onActionModeFinished(mode)
+
+        val statusBarColor = MaterialColors.getColor(binding.root, android.R.attr.statusBarColor)
+        window.statusBarColor = statusBarColor
+    }
 }
