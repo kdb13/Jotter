@@ -18,14 +18,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        tools:context=".ui.views.EditNotesFragment">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:padding="@dimen/global_padding"
-            tools:context=".ui.views.EditNoteFragment">
+            tools:context=".ui.views.EditNoteFragment"
+            tools:ignore="UselessParent">
 
             <EditText
                 android:id="@+id/edit_text_note_content"
