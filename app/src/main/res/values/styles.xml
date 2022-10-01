@@ -29,6 +29,4 @@
         <item name="background">@color/material_grey_900</item>
     </style>
 
-    <style name="Widget.Jotter.Toolbar" parent="Widget.MaterialComponents.Toolbar.PrimarySurface" />
-
 </resources>
