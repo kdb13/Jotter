@@ -1,3 +1,5 @@
+![Cover](Cover.png)
+
 # Jotter
 
 Jot down your notes using Jotter. Made with ❤️ in Kotlin.
