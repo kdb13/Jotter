@@ -2,7 +2,7 @@
 buildscript {
     ext {
         kotlinVersion = '1.6.10'
-        navigationVersion = '2.3.5'
+        navigationVersion = '2.5.2'
     }
 
     dependencies {
@@ -14,26 +14,24 @@ buildscript {
 }
 
 plugins {
-    id 'com.android.application' version '7.1.1' apply false
-    id 'com.android.library' version '7.1.1' apply false
+    id 'com.android.application' version '7.2.1' apply false
+    id 'com.android.library' version '7.2.1' apply false
     id 'org.jetbrains.kotlin.android' version "$kotlinVersion" apply false
 }
 
 ext {
     // SDK
-    compileSdkVersion = 31
-    targetSdkVersion = 31
+    compileSdkVersion = 32
+    targetSdkVersion = 32
     minSdkVersion = 21
 
     // App dependencies
-    appCompatVersion = '1.4.1'
-    fragmentVersion = '1.4.1'
-    materialVersion = '1.5.0'
-    roomVersion = '2.4.1'
-    lifecycleVersion = '2.4.1'
+    appCompatVersion = '1.5.1'
+    fragmentVersion = '1.5.3'
+    materialVersion = '1.6.1'
+    roomVersion = '2.4.3'
+    lifecycleVersion = '2.5.1'
     recyclerViewVersion = '1.1.0'
-    junitVersion = ''
-    espressoVersion = ''
 }
 
 task clean(type: Delete) {
