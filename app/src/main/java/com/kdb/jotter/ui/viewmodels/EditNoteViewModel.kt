@@ -40,19 +40,21 @@ class EditNoteViewModel(
     }
 
     fun deleteNote() {
+        // Mark as deleted
+        isDeleted = true
+
         // If it is a new note, there is nothing to delete
         if (isNewNote) return
 
         // Delete the current note
         viewModelScope.launch { repository.deleteNote(Note(id = noteId)) }
-
-        // Mark as deleted
-        isDeleted = true
     }
+
+    fun isNoteEmpty() = content.value.isNullOrBlank()
 
     private fun addNote() {
         // Don't add if content is blank
-        if (content.value.isNullOrBlank()) return
+        if (isNoteEmpty()) return
 
         // Create a new note with content
         val newNote = Note(content = content.value!!)

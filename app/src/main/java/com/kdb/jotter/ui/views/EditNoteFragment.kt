@@ -117,7 +117,12 @@ class EditNoteFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_delete -> {
-                showDeleteNoteDialog()
+                if (viewModel.isNoteEmpty()) {
+                    // Directly delete, without confirmation
+                    deleteNote()
+                } else {
+                    showDeleteNoteDialog()
+                }
                 true
             }
 
