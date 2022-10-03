@@ -20,7 +20,7 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:checkable">true</item>
-<!--        <item name="checkedIcon">@null</item>-->
+        <item name="cardElevation">2dp</item>
     </style>
 
     <style name="Widget.Jotter.ActionMode" parent="Widget.AppCompat.ActionMode">
