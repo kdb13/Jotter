@@ -2,7 +2,7 @@
 buildscript {
     ext {
         kotlinVersion = '1.6.10'
-        navigationVersion = '2.5.2'
+        navigationVersion = '2.5.3'
     }
 
     dependencies {
@@ -27,8 +27,8 @@ ext {
 
     // App dependencies
     appCompatVersion = '1.5.1'
-    fragmentVersion = '1.5.3'
-    materialVersion = '1.6.1'
+    fragmentVersion = '1.5.4'
+    materialVersion = '1.7.0'
     roomVersion = '2.4.3'
     lifecycleVersion = '2.5.1'
     recyclerViewVersion = '1.1.0'
