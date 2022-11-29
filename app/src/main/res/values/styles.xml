@@ -8,9 +8,7 @@
         <item name="android:inputType">text|textMultiLine|textCapSentences</item>
     </style>
 
-    <style name="Widget.Jotter.TextView.Note" parent="Widget.MaterialComponents.TextView">
-        <item name="android:padding">@dimen/global_padding</item>
-        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    <style name="Widget.Jotter.TextView.Note" parent="TextStyle.Jotter.Body2">
         <item name="android:maxLines">@integer/note_max_lines</item>
         <item name="android:ellipsize">end</item>
     </style>
@@ -20,7 +18,7 @@
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:checkable">true</item>
-        <item name="cardElevation">2dp</item>
+        <item name="cardElevation">1dp</item>
     </style>
 
     <style name="Widget.Jotter.ActionMode" parent="Widget.AppCompat.ActionMode">
