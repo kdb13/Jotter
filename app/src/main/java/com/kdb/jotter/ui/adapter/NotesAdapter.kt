@@ -21,7 +21,7 @@ class NotesAdapter(val onNoteClicked: (Long) -> Unit) :
 
         fun bind(note: NoteItemUiState, isChecked: Boolean) {
             binding.note = note
-            binding.cardView.isChecked = isChecked
+            binding.cardViewNote.isChecked = isChecked
         }
 
         fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =

@@ -38,7 +38,7 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
     private lateinit var tracker: SelectionTracker<Long>
     private lateinit var adapter: NotesAdapter
 
-    private var actionMode = PrimaryActionModeCallback(R.menu.action_mode_menu, this)
+    private var actionMode = PrimaryActionModeCallback(R.menu.menu_action_mode, this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,7 +67,7 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
 
         if (tracker.hasSelection()) {
             actionMode.start(binding.recyclerViewNotes)
-            actionMode.updateTitle(getString(R.string.selection_title, tracker.selection.size()))
+            actionMode.updateTitle(getString(R.string.action_mode_selection_title, tracker.selection.size()))
         }
     }
 
@@ -120,7 +120,7 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
                     actionMode.start(binding.recyclerViewNotes)
                     actionMode.updateTitle(
                         getString(
-                            R.string.selection_title,
+                            R.string.action_mode_selection_title,
                             tracker.selection.size()
                         )
                     )

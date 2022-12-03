@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="global_padding">16dp</dimen>
-    <dimen name="recycler_view_padding">8dp</dimen>
-    <dimen name="note_item_margin">8dp</dimen>
+    <dimen name="padding_global">16dp</dimen>
+    <dimen name="padding_recycler_view_notes">8dp</dimen>
+    <dimen name="margin_item_note">8dp</dimen>
 </resources>

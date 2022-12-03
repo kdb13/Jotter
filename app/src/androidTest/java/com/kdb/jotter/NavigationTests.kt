@@ -38,7 +38,7 @@ class NavigationTests {
     @Test
     fun navigate_to_add_note_nav_component() {
         // Perform the navigation test
-        onView(withId(R.id.fab_add))
+        onView(withId(R.id.fab_add_note))
             .perform(click())
 
         // Test whether the destination is correct

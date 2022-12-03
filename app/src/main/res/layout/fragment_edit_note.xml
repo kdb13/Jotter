@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:padding="@dimen/global_padding"
+            android:padding="@dimen/padding_global"
             tools:context=".ui.views.EditNoteFragment"
             tools:ignore="UselessParent">
 

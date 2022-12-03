@@ -9,7 +9,7 @@
     </style>
 
     <style name="Widget.Jotter.TextView.Note" parent="TextStyle.Jotter.Body2">
-        <item name="android:maxLines">@integer/note_max_lines</item>
+        <item name="android:maxLines">@integer/max_lines_note_content</item>
         <item name="android:ellipsize">end</item>
     </style>
 

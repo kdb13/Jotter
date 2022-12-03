@@ -77,7 +77,7 @@ class EditNoteFragment : Fragment() {
 
     private fun showDeleteNoteDialog() {
         MaterialAlertDialogBuilder(requireContext())
-            .setMessage(getString(R.string.delete_note_message))
+            .setMessage(getString(R.string.dialog_delete_note_message))
             .setPositiveButton(getString(R.string.button_delete), { _, _ -> deleteNote() })
             .setNegativeButton(getString(R.string.button_cancel), null)
             .setCancelable(false)
@@ -111,7 +111,7 @@ class EditNoteFragment : Fragment() {
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.edit_menu, menu)
+        inflater.inflate(R.menu.menu_edit_note, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

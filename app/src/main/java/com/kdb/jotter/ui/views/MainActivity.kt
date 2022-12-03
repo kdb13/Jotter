@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.view.ActionMode
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.color.MaterialColors
 import com.kdb.jotter.R
@@ -24,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.topAppBar)
+        setSupportActionBar(binding.toolbarMain)
 
         setupNavigation()
     }
@@ -32,12 +30,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavigation() {
         // Initialize the navController
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_main) as NavHostFragment
         navController = navHostFragment.navController
 
         // Set up the Toolbar with Navigation Component
         val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.topAppBar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbarMain.setupWithNavController(navController, appBarConfiguration)
     }
 
     override fun onActionModeStarted(mode: ActionMode?) {

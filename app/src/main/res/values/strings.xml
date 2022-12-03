@@ -5,8 +5,8 @@
     <string name="button_cancel">Cancel</string>
     <string name="fab_add_content_desc">Add a note</string>
     <string name="edit_text_note_hint">Jot down something…</string>
-    <string name="delete_note_message">Delete the note?</string>
-    <string name="delete_note">Delete note</string>
-    <string name="share_note">Share note</string>
-    <string name="selection_title">%1$d selected</string>
+    <string name="dialog_delete_note_message">Delete the note?</string>
+    <string name="menu_item_delete_note">Delete note</string>
+    <string name="menu_item_share_note">Share note</string>
+    <string name="action_mode_selection_title">%1$d selected</string>
 </resources>
