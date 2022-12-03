@@ -9,6 +9,13 @@ class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
 
     val notes: LiveData<List<NoteItemUiState>> = repository.getAllNotes().asLiveData()
 
+    private val _isListEmpty: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isListEmpty: LiveData<Boolean> = _isListEmpty
+
+    fun toggleEmptyState(isListEmpty: Boolean) {
+        _isListEmpty.value = isListEmpty
+    }
+
     fun deleteNotes(noteIds: List<Long>) = viewModelScope.launch {
         repository.deleteNotes(noteIds)
     }

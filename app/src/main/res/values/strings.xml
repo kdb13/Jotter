@@ -9,4 +9,6 @@
     <string name="menu_item_delete_note">Delete note</string>
     <string name="menu_item_share_note">Share note</string>
     <string name="action_mode_selection_title">%1$d selected</string>
+    <string name="text_empty_state_tagline">Empty in notes</string>
+    <string name="text_empty_state_message">Jot down your first note and it\nwill show up here.</string>
 </resources>

@@ -52,7 +52,10 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.fragment = this
+        binding.viewModel = viewModel
+
         setupAdapter()
     }
 
@@ -138,6 +141,9 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
     private fun subscribeList() {
         viewModel.notes.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+
+            // Show or hide the empty state
+            viewModel.toggleEmptyState(it.isEmpty())
         }
     }
 
