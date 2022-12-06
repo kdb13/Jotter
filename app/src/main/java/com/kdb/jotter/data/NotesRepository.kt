@@ -11,7 +11,7 @@ class NotesRepository(private val localDataSource: NotesLocalDataSource) {
 
     suspend fun addNote(note: Note): Long = localDataSource.addNote(note)
 
-    suspend fun deleteNote(note: Note) = localDataSource.deleteNote(note)
+    suspend fun deleteNote(noteId: NoteId) = localDataSource.deleteNote(noteId)
 
     suspend fun deleteNotes(noteIds: List<Long>) = localDataSource.deleteNotes(noteIds)
 

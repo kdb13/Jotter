@@ -13,7 +13,7 @@ class NotesLocalDataSource(private val noteDao: NoteDao) {
 
     suspend fun saveNoteContent(noteContent: NoteContent) = noteDao.updateContent(noteContent)
 
-    suspend fun deleteNote(note: Note) = noteDao.delete(note)
+    suspend fun deleteNote(noteId: NoteId) = noteDao.delete(noteId)
 
     suspend fun deleteNotes(noteIds: List<Long>) = noteDao.deleteNotesById(noteIds)
 

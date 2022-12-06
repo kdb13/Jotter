@@ -54,6 +54,7 @@ class EditNoteFragment : Fragment() {
             viewModel = this@EditNoteFragment.viewModel
 
             // Clear focus when Back key is pressed in EditText
+            editTextNoteTitle.clearFocusOnBack()
             editTextNoteContent.clearFocusOnBack()
         }
 

@@ -5,44 +5,43 @@
     <!-- Overline -->
     <style name="TextAppearance.Jotter.Overline" parent="TextAppearance.MaterialComponents.Overline">
         <item name="fontFamily">sans-serif-medium</item>
-        <item name="lineHeight">12sp</item>
     </style>
 
     <style name="TextStyle.Jotter.Overline" parent="Widget.MaterialComponents.TextView">
         <item name="android:textAppearance">@style/TextAppearance.Jotter.Overline</item>
+        <item name="lineHeight">12sp</item>
         <item name="firstBaselineToTopHeight">12sp</item>
         <item name="lastBaselineToBottomHeight">4sp</item>
     </style>
 
     <!-- Headline 6 -->
-    <style name="TextAppearance.Jotter.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+    <style name="TextStyle.Jotter.Headline6" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?textAppearanceHeadline6</item>
         <item name="lineHeight">24sp</item>
+        <item name="firstBaselineToTopHeight">20sp</item>
+        <item name="lastBaselineToBottomHeight">8sp</item>
     </style>
 
-    <style name="TextStyle.Jotter.Headline6" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textAppearance">@style/TextAppearance.Jotter.Headline6</item>
+    <!-- Body 1 -->
+    <style name="TextStyle.Jotter.Body1" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?textAppearanceBody1</item>
+        <item name="lineHeight">24sp</item>
         <item name="firstBaselineToTopHeight">20sp</item>
         <item name="lastBaselineToBottomHeight">8sp</item>
     </style>
 
     <!-- Body 2 -->
-    <style name="TextAppearance.Jotter.Body2" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="lineHeight">20sp</item>
-    </style>
-
     <style name="TextStyle.Jotter.Body2" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textAppearance">@style/TextAppearance.Jotter.Body2</item>
-        <item name="firstBaselineToTopHeight">12sp</item>
+        <item name="android:textAppearance">?textAppearanceBody2</item>
+        <item name="lineHeight">24sp</item>
+        <item name="firstBaselineToTopHeight">20sp</item>
         <item name="lastBaselineToBottomHeight">8sp</item>
     </style>
 
     <!-- Subtitle 1 -->
-    <style name="TextAppearance.Jotter.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="lineHeight">24sp</item>
-    </style>
-
     <style name="TextStyle.Jotter.Subtitle1" parent="Widget.MaterialComponents.TextView">
-        <item name="android:textAppearance">@style/TextAppearance.Jotter.Subtitle1</item>
+        <item name="android:textAppearance">?textAppearanceSubtitle1</item>
+        <item name="lineHeight">24sp</item>
         <item name="firstBaselineToTopHeight">20sp</item>
         <item name="lastBaselineToBottomHeight">8sp</item>
     </style>

@@ -65,7 +65,7 @@ class NotesAdapter(val onNoteClicked: (Long) -> Unit) :
         }
 
         override fun areContentsTheSame(oldItem: NoteItemUiState, newItem: NoteItemUiState): Boolean {
-            return oldItem.content == newItem.content
+            return oldItem.title == newItem.title && oldItem.content == newItem.content
         }
     }
 }

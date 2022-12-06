@@ -18,20 +18,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="12dp"
+            android:orientation="vertical"
             android:paddingStart="16dp"
+            android:paddingTop="8dp"
             android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
-            android:orientation="vertical">
+            android:paddingBottom="8dp">
 
             <!-- Making the title invisible as it's not implemented in database yet -->
             <TextView
                 android:id="@+id/text_note_title"
+                style="@style/TextStyle.Jotter.Headline6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                tools:text="Welcome to Jotter"
-                style="@style/TextStyle.Jotter.Headline6"/>
+                android:text="@{note.title}"
+                android:visibility="@{note.title != null}"
+                tools:text="Welcome to Jotter" />
 
             <TextView
                 android:id="@+id/text_note_content"

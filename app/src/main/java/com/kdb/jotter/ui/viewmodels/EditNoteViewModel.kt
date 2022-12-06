@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.kdb.jotter.data.Note
 import com.kdb.jotter.data.NoteContent
+import com.kdb.jotter.data.NoteId
 import com.kdb.jotter.data.NotesRepository
 import kotlinx.coroutines.launch
 
@@ -13,6 +14,9 @@ class EditNoteViewModel(
     private val repository: NotesRepository,
     private var noteId: Long
 ) : ViewModel() {
+
+    // The note's title
+    val title = MutableLiveData<String>()
 
     // The note's content
     val content = MutableLiveData<String>()
@@ -28,6 +32,7 @@ class EditNoteViewModel(
             viewModelScope.launch {
                 val note = repository.getNote(noteId)
                 content.value = note.content
+                note.title?.let { title.value = it }
             }
         }
     }
@@ -47,7 +52,7 @@ class EditNoteViewModel(
         if (isNewNote) return
 
         // Delete the current note
-        viewModelScope.launch { repository.deleteNote(Note(id = noteId)) }
+        viewModelScope.launch { repository.deleteNote(NoteId(noteId)) }
     }
 
     fun isNoteEmpty() = content.value.isNullOrBlank()
@@ -57,7 +62,7 @@ class EditNoteViewModel(
         if (isNoteEmpty()) return
 
         // Create a new note with content
-        val newNote = Note(content = content.value!!)
+        val newNote = Note(title = title.value!!, content = content.value!!)
 
         // Insert the note
         viewModelScope.launch {
@@ -68,7 +73,7 @@ class EditNoteViewModel(
 
     private fun updateContent() {
         // Update the current note with new content
-        val newContent = NoteContent(noteId, content.value!!)
+        val newContent = NoteContent(id = noteId, title = title.value, content = content.value!!)
         viewModelScope.launch { repository.saveNoteContent(newContent) }
     }
 }
