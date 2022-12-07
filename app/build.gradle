@@ -6,12 +6,14 @@ plugins {
 }
 
 android {
-    compileSdk rootProject.compileSdkVersion
+    namespace 'com.kdb.jotter'
+
+    compileSdk rootProject.ext.sdkVersion
 
     defaultConfig {
         applicationId "com.kdb.jotter"
-        minSdk rootProject.minSdkVersion
-        targetSdk rootProject.targetSdkVersion
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.sdkVersion
         versionCode 1
         versionName "1.0"
 
