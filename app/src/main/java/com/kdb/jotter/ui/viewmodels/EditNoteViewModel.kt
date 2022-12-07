@@ -62,7 +62,7 @@ class EditNoteViewModel(
         if (isNoteEmpty()) return
 
         // Create a new note with content
-        val newNote = Note(title = title.value!!, content = content.value!!)
+        val newNote = Note(title = title.value, content = content.value!!)
 
         // Insert the note
         viewModelScope.launch {
