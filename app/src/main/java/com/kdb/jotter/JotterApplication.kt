@@ -2,7 +2,6 @@ package com.kdb.jotter
 
 import android.app.Application
 import com.kdb.jotter.data.AppDatabase
-import com.kdb.jotter.data.NotesLocalDataSource
 import com.kdb.jotter.data.NotesRepository
 
 class JotterApplication : Application() {
@@ -12,7 +11,6 @@ class JotterApplication : Application() {
      */
     val repository by lazy {
         val database = AppDatabase.getInstance(this)
-        val localDataSource = NotesLocalDataSource(database.noteDao())
-        NotesRepository(localDataSource)
+        NotesRepository(database.noteDao())
     }
 }

@@ -11,4 +11,7 @@ data class NoteItemUiState(
     val id: Long,
     val title: String?,
     val content: String
-)
+) {
+    val isTitleVisible: Boolean
+        get() = !title.isNullOrEmpty()
+}

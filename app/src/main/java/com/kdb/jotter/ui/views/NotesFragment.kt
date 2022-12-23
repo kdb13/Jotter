@@ -1,10 +1,12 @@
 package com.kdb.jotter.ui.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,12 +15,14 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.kdb.jotter.JotterApplication
 import com.kdb.jotter.R
-import com.kdb.jotter.ui.adapter.NoteDetailsLookup
-import com.kdb.jotter.ui.adapter.NoteKeyProvider
-import com.kdb.jotter.ui.adapter.NotesAdapter
+import com.kdb.jotter.TAG
 import com.kdb.jotter.databinding.FragmentNotesBinding
 import com.kdb.jotter.ui.actionmode.OnActionItemClickListener
 import com.kdb.jotter.ui.actionmode.PrimaryActionModeCallback
+import com.kdb.jotter.ui.adapter.NoteDetailsLookup
+import com.kdb.jotter.ui.adapter.NoteKeyProvider
+import com.kdb.jotter.ui.adapter.NotesAdapter
+import com.kdb.jotter.ui.state.NotesUiState
 import com.kdb.jotter.ui.viewmodels.NotesViewModel
 import com.kdb.jotter.ui.viewmodels.NotesViewModelFactory
 
@@ -52,9 +56,7 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.lifecycleOwner = viewLifecycleOwner
         binding.fragment = this
-        binding.viewModel = viewModel
 
         setupAdapter()
     }
@@ -139,11 +141,22 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
      * Observe the notes and update the list.
      */
     private fun subscribeList() {
-        viewModel.notes.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
 
-            // Show or hide the empty state
-            viewModel.toggleEmptyState(it.isEmpty())
+            when (state) {
+                is NotesUiState.Loading -> {
+                    binding.recyclerViewNotes.isVisible = false
+                    binding.emptyStateNotes.isVisible = false
+                }
+
+                is NotesUiState.Success -> {
+                    adapter.submitList(state.noteItems)
+
+                    binding.recyclerViewNotes.isVisible = !state.isListEmpty
+                    binding.emptyStateNotes.isVisible = state.isListEmpty
+                }
+            }
+
         }
     }
 

@@ -3,18 +3,18 @@ package com.kdb.jotter.data
 import com.kdb.jotter.ui.state.NoteItemUiState
 import kotlinx.coroutines.flow.Flow
 
-class NotesRepository(private val localDataSource: NotesLocalDataSource) {
+class NotesRepository(private val noteDao: NoteDao) {
 
-    fun getAllNotes(): Flow<List<NoteItemUiState>> = localDataSource.getAllNotes()
+    fun getAllNotes(): Flow<List<NoteItemUiState>> = noteDao.getAll()
 
-    suspend fun getNote(id: Long): Note = localDataSource.getNote(id)
+    suspend fun getNote(id: Long): Note = noteDao.getNoteById(id)
 
-    suspend fun addNote(note: Note): Long = localDataSource.addNote(note)
+    suspend fun addNote(note: Note): Long = noteDao.insert(note)
 
-    suspend fun deleteNote(noteId: NoteId) = localDataSource.deleteNote(noteId)
+    suspend fun deleteNote(noteId: NoteId) = noteDao.delete(noteId)
 
-    suspend fun deleteNotes(noteIds: List<Long>) = localDataSource.deleteNotes(noteIds)
+    suspend fun deleteNotes(noteIds: List<Long>) = noteDao.deleteNotesById(noteIds)
 
-    suspend fun saveNoteContent(noteContent: NoteContent) = localDataSource.saveNoteContent(noteContent)
+    suspend fun saveNoteContent(noteContent: NoteContent) = noteDao.updateContent(noteContent)
     
 }

@@ -2,6 +2,7 @@ package com.kdb.jotter.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.DiffUtil
@@ -22,6 +23,7 @@ class NotesAdapter(val onNoteClicked: (Long) -> Unit) :
         fun bind(note: NoteItemUiState, isChecked: Boolean) {
             binding.note = note
             binding.cardViewNote.isChecked = isChecked
+            binding.textNoteTitle.isVisible = note.isTitleVisible
         }
 
         fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
@@ -64,7 +66,10 @@ class NotesAdapter(val onNoteClicked: (Long) -> Unit) :
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: NoteItemUiState, newItem: NoteItemUiState): Boolean {
+        override fun areContentsTheSame(
+            oldItem: NoteItemUiState,
+            newItem: NoteItemUiState
+        ): Boolean {
             return oldItem.title == newItem.title && oldItem.content == newItem.content
         }
     }
