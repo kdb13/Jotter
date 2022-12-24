@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- The Light version of our theme -->
     <style name="Theme.Jotter" parent="Base.Theme.Jotter">
         <!-- Primary brand color. -->
@@ -22,6 +22,7 @@
         <item name="actionModeStyle">@style/Widget.Jotter.ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/ic_close</item>
         <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
 
         <!-- Typography -->
         <item name="textAppearanceHeadline1">@style/TextAppearance.Jotter.Headline1</item>
