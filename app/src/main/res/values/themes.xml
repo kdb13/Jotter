@@ -22,5 +22,20 @@
         <item name="actionModeStyle">@style/Widget.Jotter.ActionMode</item>
         <item name="actionModeCloseDrawable">@drawable/ic_close</item>
         <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+
+        <!-- Typography -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Jotter.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Jotter.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Jotter.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Jotter.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Jotter.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.Jotter.Headline6</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Jotter.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Jotter.Body2</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Jotter.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Jotter.Subtitle2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Jotter.Caption</item>
+        <item name="textAppearanceOverline">@style/TextStyle.Jotter.Overline</item>
+        <item name="textAppearanceButton">@style/TextAppearance.Jotter.Button</item>
     </style>
 </resources>
