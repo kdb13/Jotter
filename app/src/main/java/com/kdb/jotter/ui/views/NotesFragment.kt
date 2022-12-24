@@ -63,7 +63,10 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        tracker.onSaveInstanceState(outState)
+
+        if (this::tracker.isInitialized) {
+            tracker.onSaveInstanceState(outState)
+        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {

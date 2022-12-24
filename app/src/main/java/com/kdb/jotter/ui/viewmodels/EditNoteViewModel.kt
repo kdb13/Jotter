@@ -1,13 +1,11 @@
 package com.kdb.jotter.ui.viewmodels
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.kdb.jotter.data.Note
 import com.kdb.jotter.data.NoteContent
 import com.kdb.jotter.data.NoteId
 import com.kdb.jotter.data.NotesRepository
+import com.kdb.jotter.ui.state.EditNoteUiState
 import kotlinx.coroutines.launch
 
 class EditNoteViewModel(
@@ -15,27 +13,33 @@ class EditNoteViewModel(
     private var noteId: Long
 ) : ViewModel() {
 
-    // The note's title
-    val title = MutableLiveData<String>()
-
-    // The note's content
-    val content = MutableLiveData<String>()
-
-    val isNewNote: Boolean get() = noteId.compareTo(-1) == 0
-
     // Whether the user has deleted the current note
     private var isDeleted = false
 
+    // Whether the user is adding a new note or editing an existing one
+    val isNewNote: Boolean get() = noteId.compareTo(-1) == 0
+
+    private val _uiState = MutableLiveData<EditNoteUiState>()
+    val uiState: LiveData<EditNoteUiState> = _uiState
+
     init {
-        // Load the note's content from repository
+        // Load the note details if it's an existing note
         if (!isNewNote) {
-            viewModelScope.launch {
-                val note = repository.getNote(noteId)
-                content.value = note.content
-                note.title?.let { title.value = it }
-            }
+            loadNote()
+        } else {
+            _uiState.value = EditNoteUiState(isLoading = false)
         }
     }
+
+    fun onTitleChanged(title: String) {
+        _uiState.value = uiState.value?.copy(title = title)
+    }
+
+    fun onContentChanged(content: String) {
+        _uiState.value = uiState.value?.copy(content = content)
+    }
+
+    fun isNoteEmpty() = _uiState.value?.content.isNullOrBlank()
 
     fun saveNote() {
         // Don't save if already deleted by user
@@ -55,26 +59,46 @@ class EditNoteViewModel(
         viewModelScope.launch { repository.deleteNote(NoteId(noteId)) }
     }
 
-    fun isNoteEmpty() = content.value.isNullOrBlank()
-
     private fun addNote() {
         // Don't add if content is blank
         if (isNoteEmpty()) return
 
         // Create a new note with content
-        val newNote = Note(title = title.value, content = content.value!!)
+        val newNote = Note(
+            title = uiState.value!!.title,
+            content = uiState.value!!.content
+        )
 
-        // Insert the note
+        // Add the note
         viewModelScope.launch {
-            // Store the ID of newly inserted note
-            noteId = repository.addNote(newNote)
+            repository.addNote(newNote)
         }
     }
 
     private fun updateContent() {
         // Update the current note with new content
-        val newContent = NoteContent(id = noteId, title = title.value, content = content.value!!)
+        val newContent = NoteContent(
+            id = noteId,
+            title = uiState.value!!.title,
+            content = uiState.value!!.content
+        )
+
         viewModelScope.launch { repository.saveNoteContent(newContent) }
+    }
+
+    private fun loadNote() = viewModelScope.launch {
+        // Show the progress bar (isLoading = true)
+        _uiState.value = EditNoteUiState()
+
+        // Fetch the note details
+        val note = repository.getNote(noteId)
+
+        // Update UI state with note details & hide the progress bar
+        _uiState.value = uiState.value?.copy(
+            isLoading = false,
+            title = note.title,
+            content = note.content
+        )
     }
 }
 

@@ -2,6 +2,7 @@ package com.kdb.jotter.ui.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.kdb.jotter.JotterApplication
 import com.kdb.jotter.R
+import com.kdb.jotter.TAG
 import com.kdb.jotter.databinding.FragmentEditNoteBinding
 import com.kdb.jotter.ui.clearFocusOnBack
 import com.kdb.jotter.ui.showSoftKeyboard
@@ -50,7 +52,6 @@ class EditNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            lifecycleOwner = viewLifecycleOwner
             viewModel = this@EditNoteFragment.viewModel
 
             // Clear focus when Back key is pressed in EditText
@@ -62,6 +63,9 @@ class EditNoteFragment : Fragment() {
         if (viewModel.isNewNote) {
             binding.editTextNoteContent.showSoftKeyboard()
         }
+
+        // Observe the UI state
+        observeState()
     }
 
     override fun onStop() {
@@ -96,7 +100,7 @@ class EditNoteFragment : Fragment() {
     private fun shareNote() {
         val sendIntent = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, viewModel.content.value)
+            putExtra(Intent.EXTRA_TEXT, viewModel.uiState.value?.content)
         }
 
         val chooserIntent = Intent.createChooser(sendIntent, "Share note")
@@ -106,12 +110,38 @@ class EditNoteFragment : Fragment() {
         }
     }
 
+    private fun observeState() {
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            binding.state = state
+
+            if (!state.isMenuHidden) {
+                activity?.invalidateOptionsMenu()
+            }
+
+            Log.d(TAG, "observeState: $state")
+        }
+    }
+
     /*
         OPTIONS MENU
         ------------
      */
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+
+        Log.d(TAG, "onPrepareOptionsMenu: ")
+
+        viewModel.uiState.value?.let { state ->
+            menu.findItem(R.id.action_share).isVisible = !state.isMenuHidden
+            menu.findItem(R.id.action_delete).isVisible = !state.isMenuHidden
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
+
+        Log.d(TAG, "onCreateOptionsMenu: ")
+
         inflater.inflate(R.menu.menu_edit_note, menu)
     }
 
