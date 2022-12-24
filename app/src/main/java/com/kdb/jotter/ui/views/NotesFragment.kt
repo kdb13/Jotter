@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionPredicates
@@ -75,7 +77,12 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
 
         if (tracker.hasSelection()) {
             actionMode.start(binding.recyclerViewNotes)
-            actionMode.updateTitle(getString(R.string.action_mode_selection_title, tracker.selection.size()))
+            actionMode.updateTitle(
+                getString(
+                    R.string.action_mode_selection_title,
+                    tracker.selection.size()
+                )
+            )
         }
     }
 
@@ -145,7 +152,8 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
      */
     private fun subscribeList() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
-
+            Log.d(TAG, "subscribeList: $state")
+            
             when (state) {
                 is NotesUiState.Loading -> {
                     binding.recyclerViewNotes.isVisible = false
@@ -157,6 +165,12 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
 
                     binding.recyclerViewNotes.isVisible = !state.isListEmpty
                     binding.emptyStateNotes.isVisible = state.isListEmpty
+
+                    // Notify MainActivity to hide the splash screen
+                    requireActivity().supportFragmentManager.setFragmentResult(
+                        MainActivity.FRAGMENT_RESULT_REQUEST_KEY,
+                        bundleOf(MainActivity.SPLASH_SCREEN_RESULT_KEY to true)
+                    )
                 }
             }
 
