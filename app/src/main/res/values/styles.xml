@@ -9,6 +9,8 @@
 
     <style name="Widget.Jotter.EditText.Note.Title">
         <item name="android:textAppearance">?textAppearanceHeadline6</item>
+        <item name="android:inputType">textMultiLine|textCapSentences</item>
+        <item name="android:scrollHorizontally">false</item>
         <item name="lineHeight">24sp</item>
         <item name="firstBaselineToTopHeight">20sp</item>
         <item name="lastBaselineToBottomHeight">8sp</item>
