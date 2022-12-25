@@ -24,6 +24,9 @@ class NotesAdapter(val onNoteClicked: (Long) -> Unit) :
             binding.note = note
             binding.cardViewNote.isChecked = isChecked
             binding.textNoteTitle.isVisible = note.isTitleVisible
+
+            // Show full TextView (with no max. lines restriction) for the first note
+            if (note.id.toInt() == 1) binding.textNoteContent.maxLines = Int.MAX_VALUE
         }
 
         fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =
