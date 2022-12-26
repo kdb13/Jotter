@@ -25,7 +25,7 @@ ext {
 
     // App dependencies
     appCompatVersion = '1.5.1'
-    fragmentVersion = '1.5.4'
+    fragmentVersion = '1.5.5'
     materialVersion = '1.7.0'
     roomVersion = '2.4.3'
     lifecycleVersion = '2.5.1'

@@ -15,3 +15,9 @@ data class Note(
 data class NoteId(
     val id: Long
 )
+
+data class NoteContent(
+    val id: Long,
+    val title: String? = null,
+    val content: String
+)

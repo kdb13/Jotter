@@ -82,7 +82,7 @@ class EditNoteFragment : Fragment(), MenuProvider {
     private fun showDeleteNoteDialog() {
         MaterialAlertDialogBuilder(requireContext())
             .setMessage(getString(R.string.dialog_delete_note_message))
-            .setPositiveButton(getString(R.string.button_delete), { _, _ -> deleteNote() })
+            .setPositiveButton(getString(R.string.button_delete)) { _, _ -> deleteNote() }
             .setNegativeButton(getString(R.string.button_cancel), null)
             .setCancelable(false)
             .show()

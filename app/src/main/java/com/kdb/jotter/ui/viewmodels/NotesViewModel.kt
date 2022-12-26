@@ -2,14 +2,13 @@ package com.kdb.jotter.ui.viewmodels
 
 import androidx.lifecycle.*
 import com.kdb.jotter.data.NotesRepository
-import com.kdb.jotter.ui.state.NoteItemUiState
 import com.kdb.jotter.ui.state.NotesUiState
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
 
-    val _uiState = MutableLiveData<NotesUiState>()
+    private val _uiState = MutableLiveData<NotesUiState>()
     val uiState: LiveData<NotesUiState> = _uiState
 
     init {
