@@ -91,14 +91,17 @@ class EditNoteViewModel(
         _uiState.value = EditNoteUiState()
 
         // Fetch the note details
-        val note = repository.getNote(noteId)
+        // Will consider for an unknown error in future
+        repository.getNote(noteId)?.let { note ->
 
-        // Update UI state with note details & hide the progress bar
-        _uiState.value = uiState.value?.copy(
-            isLoading = false,
-            title = note.title,
-            content = note.content
-        )
+            // Update UI state with note details & hide the progress bar
+            _uiState.value = uiState.value?.copy(
+                isLoading = false,
+                title = note.title,
+                content = note.content
+            )
+
+        }
     }
 }
 
