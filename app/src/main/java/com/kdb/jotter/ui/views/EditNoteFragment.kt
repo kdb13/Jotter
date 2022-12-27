@@ -8,7 +8,9 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -50,33 +52,33 @@ class EditNoteFragment : Fragment(), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Lifecycle callbacks
+        viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onStop(owner: LifecycleOwner) {
+                // Save note
+                viewModel.saveNote()
+            }
+
+            override fun onDestroy(owner: LifecycleOwner) {
+                _binding = null
+            }
+        })
+
         binding.apply {
             viewModel = this@EditNoteFragment.viewModel
 
             // Clear focus when Back key is pressed in EditText
             editTextNoteTitle.clearFocusOnBack()
             editTextNoteContent.clearFocusOnBack()
-        }
 
-        // Show the keyboard when adding a new note
-        if (viewModel.isNewNote) {
-            binding.editTextNoteContent.showSoftKeyboard()
+            // Show the keyboard when adding a new note
+            if (viewModel.isNewNote) {
+                editTextNoteContent.showSoftKeyboard()
+            }
         }
 
         // Observe the UI state
         observeState()
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        // Save note
-        viewModel.saveNote()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun showDeleteNoteDialog() {

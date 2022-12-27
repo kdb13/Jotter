@@ -3,13 +3,14 @@ package com.kdb.jotter.ui.views
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
@@ -18,7 +19,6 @@ import com.kdb.jotter.JotterApplication
 import com.kdb.jotter.R
 import com.kdb.jotter.TAG
 import com.kdb.jotter.databinding.FragmentNotesBinding
-import com.kdb.jotter.ui.actionmode.OnActionItemClickListener
 import com.kdb.jotter.ui.actionmode.PrimaryActionModeCallback
 import com.kdb.jotter.ui.adapter.NoteDetailsLookup
 import com.kdb.jotter.ui.adapter.NoteKeyProvider
@@ -27,7 +27,7 @@ import com.kdb.jotter.ui.state.NotesUiState
 import com.kdb.jotter.ui.viewmodels.NotesViewModel
 import com.kdb.jotter.ui.viewmodels.NotesViewModelFactory
 
-class NotesFragment : Fragment(), OnActionItemClickListener {
+class NotesFragment : Fragment() {
 
     companion object {
         const val SELECTION_ID = "notes_selection"
@@ -43,7 +43,7 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
     private lateinit var tracker: SelectionTracker<Long>
     private lateinit var adapter: NotesAdapter
 
-    private var actionMode = PrimaryActionModeCallback(R.menu.menu_action_mode, this)
+    private lateinit var actionMode: PrimaryActionModeCallback
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +59,20 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
 
         binding.fragment = this
 
+        // Setup Contextual Action Bar
+        actionMode = PrimaryActionModeCallback(R.menu.menu_action_mode) { item ->
+            when (item.itemId) {
+                R.id.action_delete -> deleteSelectedNotes()
+            }
+        }
+
         setupAdapter()
+
+        viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onDestroy(owner: LifecycleOwner) {
+                _binding = null
+            }
+        })
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -72,31 +85,9 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+
         tracker.onRestoreInstanceState(savedInstanceState)
-
-        if (tracker.hasSelection()) {
-            actionMode.start(binding.recyclerViewNotes)
-            actionMode.updateTitle(
-                getString(
-                    R.string.action_mode_selection_title,
-                    tracker.selection.size()
-                )
-            )
-        }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    /**
-     * Called when an item from the CAB is clicked.
-     */
-    override fun onActionItemClick(item: MenuItem) {
-        when (item.itemId) {
-            R.id.action_delete -> deleteSelectedNotes()
-        }
+        if (tracker.hasSelection()) startActionMode()
     }
 
     private fun setupAdapter() {
@@ -130,14 +121,7 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
         tracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
             override fun onSelectionChanged() {
                 if (tracker.hasSelection()) {
-                    // Show the action bar and update the title
-                    actionMode.start(binding.recyclerViewNotes)
-                    actionMode.updateTitle(
-                        getString(
-                            R.string.action_mode_selection_title,
-                            tracker.selection.size()
-                        )
-                    )
+                    startActionMode()
                 } else {
                     // Hide the action bar, when there is no selection
                     actionMode.finish()
@@ -194,5 +178,18 @@ class NotesFragment : Fragment(), OnActionItemClickListener {
 
     private fun deleteSelectedNotes() {
         viewModel.deleteNotes(adapter.getSelectedNotesId())
+    }
+
+    /**
+     * Shows the action bar and updates the title.
+     */
+    private fun startActionMode() {
+        actionMode.start(binding.recyclerViewNotes)
+        actionMode.updateTitle(
+            getString(
+                R.string.action_mode_selection_title,
+                tracker.selection.size()
+            )
+        )
     }
 }

@@ -11,7 +11,10 @@ import androidx.recyclerview.selection.SelectionTracker
  * A convenience class for creating Primary Action Mode by
  * [Nick Banes](https://medium.com/over-engineering/using-androids-actionmode-e903181f2ee3).
  */
-class PrimaryActionModeCallback(@MenuRes private val menuResId: Int, private val listener: OnActionItemClickListener) : ActionMode.Callback {
+class PrimaryActionModeCallback(
+    @MenuRes private val menuResId: Int,
+    private val onActionItemClick: (MenuItem) -> Unit
+) : ActionMode.Callback {
 
     private var actionMode: ActionMode? = null
     lateinit var tracker: SelectionTracker<Long>
@@ -30,7 +33,7 @@ class PrimaryActionModeCallback(@MenuRes private val menuResId: Int, private val
     }
 
     override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-        listener.onActionItemClick(item)
+        onActionItemClick(item)
         mode.finish()
         return true
     }

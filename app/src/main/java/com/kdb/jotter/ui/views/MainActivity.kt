@@ -1,7 +1,6 @@
 package com.kdb.jotter.ui.views
 
 import android.os.Bundle
-import android.util.Log
 import android.view.ActionMode
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -12,7 +11,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.color.MaterialColors
 import com.kdb.jotter.R
-import com.kdb.jotter.TAG
 import com.kdb.jotter.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -37,16 +35,6 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
 
         setFragmentListener()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "onStart: MainActivity")
-    }
-    
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop: MainActivity")
     }
     
     private fun setupNavigation() {
