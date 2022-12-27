@@ -1,6 +1,10 @@
 package com.kdb.jotter.ui.viewmodels
 
 import androidx.lifecycle.*
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.kdb.jotter.JotterApplication
 import com.kdb.jotter.data.NotesRepository
 import com.kdb.jotter.ui.state.NotesUiState
 import kotlinx.coroutines.flow.onStart
@@ -26,15 +30,13 @@ class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
     fun deleteNotes(noteIds: List<Long>) = viewModelScope.launch {
         repository.deleteNotes(noteIds)
     }
-}
 
-class NotesViewModelFactory(private val repository: NotesRepository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(NotesViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return NotesViewModel(repository) as T
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val repository = (this[APPLICATION_KEY] as JotterApplication).repository
+                NotesViewModel(repository)
+            }
         }
-
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

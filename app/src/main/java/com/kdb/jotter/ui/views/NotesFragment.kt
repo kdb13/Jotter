@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
-import com.kdb.jotter.JotterApplication
 import com.kdb.jotter.R
 import com.kdb.jotter.TAG
 import com.kdb.jotter.databinding.FragmentNotesBinding
@@ -25,7 +24,6 @@ import com.kdb.jotter.ui.adapter.NoteKeyProvider
 import com.kdb.jotter.ui.adapter.NotesAdapter
 import com.kdb.jotter.ui.state.NotesUiState
 import com.kdb.jotter.ui.viewmodels.NotesViewModel
-import com.kdb.jotter.ui.viewmodels.NotesViewModelFactory
 
 class NotesFragment : Fragment() {
 
@@ -36,9 +34,7 @@ class NotesFragment : Fragment() {
     private var _binding: FragmentNotesBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: NotesViewModel by viewModels {
-        NotesViewModelFactory((activity?.application as JotterApplication).repository)
-    }
+    private val viewModel: NotesViewModel by viewModels { NotesViewModel.Factory }
 
     private lateinit var tracker: SelectionTracker<Long>
     private lateinit var adapter: NotesAdapter

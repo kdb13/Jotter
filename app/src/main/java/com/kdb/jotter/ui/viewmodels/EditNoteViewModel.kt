@@ -1,6 +1,9 @@
 package com.kdb.jotter.ui.viewmodels
 
 import androidx.lifecycle.*
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewmodel.CreationExtras
+import com.kdb.jotter.JotterApplication
 import com.kdb.jotter.data.Note
 import com.kdb.jotter.data.NoteContent
 import com.kdb.jotter.data.NoteId
@@ -103,15 +106,18 @@ class EditNoteViewModel(
 
         }
     }
-}
 
-class EditNoteViewModelFactory(private val repository: NotesRepository, private val noteId: Long) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(EditNoteViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
+    class Factory(private val noteId: Long) : ViewModelProvider.Factory {
+
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel> create(
+            modelClass: Class<T>,
+            extras: CreationExtras
+        ): T {
+            val application = (extras[APPLICATION_KEY] as JotterApplication)
+            val repository = application.repository
             return EditNoteViewModel(repository, noteId) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+
     }
 }

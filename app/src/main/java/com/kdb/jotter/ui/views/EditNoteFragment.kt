@@ -14,14 +14,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.kdb.jotter.JotterApplication
 import com.kdb.jotter.R
 import com.kdb.jotter.TAG
 import com.kdb.jotter.databinding.FragmentEditNoteBinding
 import com.kdb.jotter.ui.clearFocusOnBack
 import com.kdb.jotter.ui.showSoftKeyboard
 import com.kdb.jotter.ui.viewmodels.EditNoteViewModel
-import com.kdb.jotter.ui.viewmodels.EditNoteViewModelFactory
 
 class EditNoteFragment : Fragment(), MenuProvider {
 
@@ -34,10 +32,7 @@ class EditNoteFragment : Fragment(), MenuProvider {
     private var isMenuAdded = false
 
     private val viewModel: EditNoteViewModel by viewModels {
-        EditNoteViewModelFactory(
-            (activity?.application as JotterApplication).repository,
-            args.noteID
-        )
+        EditNoteViewModel.Factory(args.noteID)
     }
 
     override fun onCreateView(
