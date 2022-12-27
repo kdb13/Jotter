@@ -66,7 +66,7 @@ class NoteDaoTest {
         noteDao.insert(noteWithContent)
 
         // Get the result for inspection
-        val result = noteDao.getAll().first()
+        val result = noteDao.getNotesStream().first()
 
         // Check that the test note is present in the result
         assertThat(result).contains(noteWithContent)
@@ -85,7 +85,7 @@ class NoteDaoTest {
         noteDao.insert(noteWithContentAndTitle)
 
         // Get the result for inspection
-        val result = noteDao.getAll().first()
+        val result = noteDao.getNotesStream().first()
 
         // Check that the test note is present in the result
         assertThat(result).contains(noteWithContentAndTitle)
@@ -97,7 +97,7 @@ class NoteDaoTest {
         noteDao.insert(testNote)
         noteDao.delete(NoteId(2))
 
-        val result = noteDao.getAll().first()
+        val result = noteDao.getNotesStream().first()
         assertThat(result).doesNotContain(testNote)
     }
 
@@ -114,7 +114,7 @@ class NoteDaoTest {
         val noteIds = testNotes.map { it.id }
         noteDao.deleteNotesById(noteIds)
 
-        val result = noteDao.getAll().first()
+        val result = noteDao.getNotesStream().first()
         testNotes.forEach {
             assertThat(result).doesNotContain(it)
         }

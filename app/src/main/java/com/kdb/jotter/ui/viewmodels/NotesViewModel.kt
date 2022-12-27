@@ -16,7 +16,7 @@ class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
     }
 
     private fun loadNotes() = viewModelScope.launch {
-        repository.getAllNotes()
+        repository.getNotesStream()
             .onStart { _uiState.value = NotesUiState.Loading }
             .collect {
                 _uiState.value = NotesUiState.Success(noteItems = it)

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface NoteDao {
     @Query("SELECT * FROM note ORDER BY dateCreated DESC")
-    fun getAll(): Flow<List<Note>>
+    fun getNotesStream(): Flow<List<Note>>
 
     @Query("SELECT * FROM note WHERE id = :noteId")
     suspend fun getNoteById(noteId: Long): Note?

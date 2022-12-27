@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.map
 
 class NotesRepository(private val noteDao: NoteDao) {
 
-    fun getAllNotes(): Flow<List<NoteItemUiState>> = noteDao.getAll().map { notes ->
+    fun getNotesStream(): Flow<List<NoteItemUiState>> = noteDao.getNotesStream().map { notes ->
         notes.map { note ->
             NoteItemUiState(note.id, note.title, note.content)
         }
