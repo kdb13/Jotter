@@ -70,11 +70,11 @@ class EditNoteFragment : Fragment(), MenuProvider {
             // Clear focus when Back key is pressed in EditText
             editTextNoteTitle.clearFocusOnBack()
             editTextNoteContent.clearFocusOnBack()
+        }
 
-            // Show the keyboard when adding a new note
-            if (viewModel.isNewNote) {
-                editTextNoteContent.showSoftKeyboard()
-            }
+        // Show the keyboard when adding a new note
+        if (viewModel.isNewNote) {
+            binding.editTextNoteContent.showSoftKeyboard()
         }
 
         // Observe the UI state
