@@ -7,12 +7,11 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.kdb.jotter.JotterApplication
 import com.kdb.jotter.data.NotesRepository
 import com.kdb.jotter.ui.state.NotesUiState
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
 
-    private val _uiState = MutableLiveData<NotesUiState>()
+    private val _uiState = MutableLiveData<NotesUiState>(NotesUiState.Loading)
     val uiState: LiveData<NotesUiState> = _uiState
 
     init {
@@ -21,7 +20,6 @@ class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
 
     private fun loadNotes() = viewModelScope.launch {
         repository.getNotesStream()
-            .onStart { _uiState.value = NotesUiState.Loading }
             .collect {
                 _uiState.value = NotesUiState.Success(noteItems = it)
             }
