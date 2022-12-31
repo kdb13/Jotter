@@ -9,7 +9,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class NotesRepositoryTest {
+class DefaultNotesRepositoryTest {
 
     private val testNoteItemUiState = NoteItemUiState(
         id = 1,
@@ -18,12 +18,12 @@ class NotesRepositoryTest {
     )
 
     private val testNotes = loadTestNotes()
-    private lateinit var notesRepository: NotesRepository
+    private lateinit var notesRepository: DefaultNotesRepository
 
     @Before
     fun setup() {
         val noteDao = FakeNoteDao(testNotes)
-        notesRepository = NotesRepository(noteDao)
+        notesRepository = DefaultNotesRepository(noteDao)
     }
 
     @Test
