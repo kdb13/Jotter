@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -24,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Setup Splash Screen
-        installSplashScreen().apply {
+        /*installSplashScreen().apply {
              setKeepOnScreenCondition { showSplashScreen }
-        }
+        }*/
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -56,18 +57,6 @@ class MainActivity : AppCompatActivity() {
                 val result = bundle.getBoolean(SPLASH_SCREEN_RESULT_KEY)
                 if (result) showSplashScreen = false
             }
-    }
-
-    override fun onActionModeStarted(mode: ActionMode?) {
-        super.onActionModeStarted(mode)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
-    }
-
-    override fun onActionModeFinished(mode: ActionMode?) {
-        super.onActionModeFinished(mode)
-
-        val statusBarColor = MaterialColors.getColor(binding.root, android.R.attr.statusBarColor)
-        window.statusBarColor = statusBarColor
     }
     
     companion object {

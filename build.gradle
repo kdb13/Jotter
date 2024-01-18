@@ -20,13 +20,13 @@ plugins {
 
 ext {
     // SDK
-    sdkVersion = 32
+    sdkVersion = 34
     minSdkVersion = 21
 
     // App dependencies
     appCompatVersion = '1.5.1'
     fragmentVersion = '1.5.5'
-    materialVersion = '1.7.0'
+    materialVersion = '1.11.0'
     roomVersion = '2.4.3'
     lifecycleVersion = '2.5.1'
     recyclerViewVersion = '1.1.0'

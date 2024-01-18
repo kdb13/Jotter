@@ -20,7 +20,6 @@ abstract class AppDatabase : RoomDatabase() {
                     "app_database"
                 )
                     .createFromAsset("databases/onboarding.db")
-                    .fallbackToDestructiveMigration()
                     .build()
 
                 INSTANCE = database

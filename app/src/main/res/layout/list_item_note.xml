@@ -27,7 +27,6 @@
             <!-- Making the title invisible as it's not implemented in database yet -->
             <TextView
                 android:id="@+id/text_note_title"
-                style="@style/TextStyle.Jotter.Headline6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{note.title}"
@@ -35,7 +34,6 @@
 
             <TextView
                 android:id="@+id/text_note_content"
-                style="@style/Widget.Jotter.TextView.Note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{note.content}"

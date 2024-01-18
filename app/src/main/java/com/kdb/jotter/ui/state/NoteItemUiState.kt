@@ -1,11 +1,11 @@
 package com.kdb.jotter.ui.state
 
 /**
- * The data required by a single note item in the recycler view.
+ * UI state for a single note item in the Notes screen.
  *
- * @param id the unique ID of note
- * @param title the note's title (optional)
- * @param content the note's textual content
+ * @param id ID of the note. Required for showing note details and keeping track of selections.
+ * @param title The note's title. (optional)
+ * @param content The note's content.
  */
 data class NoteItemUiState(
     val id: Long,

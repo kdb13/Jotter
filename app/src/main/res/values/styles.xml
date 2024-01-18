@@ -23,11 +23,6 @@
         <item name="lastBaselineToBottomHeight">8sp</item>
     </style>
 
-    <style name="Widget.Jotter.TextView.Note" parent="TextStyle.Jotter.Body2">
-        <item name="android:maxLines">@integer/max_lines_note_content</item>
-        <item name="android:ellipsize">end</item>
-    </style>
-
     <style name="Widget.Jotter.CardView.Note" parent="Widget.MaterialComponents.CardView">
         <item name="android:layout_margin">8dp</item>
         <item name="android:clickable">true</item>

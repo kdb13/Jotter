@@ -7,12 +7,15 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.kdb.jotter.JotterApplication
 import com.kdb.jotter.data.NotesRepository
 import com.kdb.jotter.ui.state.NotesUiState
+import com.kdb.jotter.ui.state.SelectionState
 import kotlinx.coroutines.launch
 
 class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
 
     private val _uiState = MutableLiveData<NotesUiState>(NotesUiState.Loading)
     val uiState: LiveData<NotesUiState> = _uiState
+
+    val selectionState = SelectionState()
 
     init {
         loadNotes()

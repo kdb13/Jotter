@@ -5,6 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material3.Text
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -22,6 +26,8 @@ import com.kdb.jotter.ui.actionmode.PrimaryActionModeCallback
 import com.kdb.jotter.ui.adapter.NoteDetailsLookup
 import com.kdb.jotter.ui.adapter.NoteKeyProvider
 import com.kdb.jotter.ui.adapter.NotesAdapter
+import com.kdb.jotter.ui.components.NotesList
+import com.kdb.jotter.ui.screens.NotesScreen
 import com.kdb.jotter.ui.state.NotesUiState
 import com.kdb.jotter.ui.viewmodels.NotesViewModel
 
@@ -30,9 +36,6 @@ class NotesFragment : Fragment() {
     companion object {
         const val SELECTION_ID = "notes_selection"
     }
-
-    private var _binding: FragmentNotesBinding? = null
-    private val binding get() = _binding!!
 
     private val viewModel: NotesViewModel by viewModels { NotesViewModel.Factory }
 
@@ -46,14 +49,21 @@ class NotesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNotesBinding.inflate(inflater, container, false)
-        return binding.root
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent { 
+                NotesScreen(
+                    viewModel = viewModel,
+                    onNoteClick = { id -> showNoteDetails(id) }
+                )
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.fragment = this
+//        binding.fragment = this
 
         // Setup Contextual Action Bar
         actionMode = PrimaryActionModeCallback(R.menu.menu_action_mode) { item ->
@@ -62,31 +72,38 @@ class NotesFragment : Fragment() {
             }
         }
 
-        setupAdapter()
+        // setupAdapter()
 
-        viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onDestroy(owner: LifecycleOwner) {
-                _binding = null
-            }
-        })
+//        binding.notesComposeView.setContent {
+//            val uiState = viewModel.uiState.observeAsState().value!!;
+//
+//            when (uiState) {
+//                NotesUiState.Loading -> Text("Loading notes")
+//                is NotesUiState.Success -> NotesList(
+//                    notes = uiState.noteItems,
+//                    onNoteClick = {id -> showNoteDetails(id) }
+//                )
+//            }
+//        }
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        if (this::tracker.isInitialized) {
-            tracker.onSaveInstanceState(outState)
-        }
+//        if (this::tracker.isInitialized) {
+//            tracker.onSaveInstanceState(outState)
+//        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
 
-        tracker.onRestoreInstanceState(savedInstanceState)
-        if (tracker.hasSelection()) startActionMode()
+//        tracker.onRestoreInstanceState(savedInstanceState)
+//        if (tracker.hasSelection()) startActionMode()
     }
 
-    private fun setupAdapter() {
+    /*private fun setupAdapter() {
         // Create an adapter for displaying notes
         adapter = NotesAdapter { showNoteDetails(it) }
         binding.recyclerViewNotes.adapter = adapter
@@ -96,9 +113,9 @@ class NotesFragment : Fragment() {
 
         // Listen for list changes
         subscribeList()
-    }
+    }*/
 
-    private fun setupSelection() {
+    /*private fun setupSelection() {
         // Create a SelectionTracker for selecting notes
         tracker = SelectionTracker.Builder(
             SELECTION_ID,
@@ -124,13 +141,13 @@ class NotesFragment : Fragment() {
                 }
             }
         })
-    }
+    }*/
 
     /**
      * Observe the notes and update the list.
      */
     private fun subscribeList() {
-        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+        /*viewModel.uiState.observe(viewLifecycleOwner) { state ->
             Log.d(TAG, "subscribeList: $state")
             
             when (state) {
@@ -153,7 +170,7 @@ class NotesFragment : Fragment() {
                 }
             }
 
-        }
+        }*/
     }
 
     /**
@@ -179,7 +196,7 @@ class NotesFragment : Fragment() {
     /**
      * Shows the action bar and updates the title.
      */
-    private fun startActionMode() {
+    /*private fun startActionMode() {
         actionMode.start(binding.recyclerViewNotes)
         actionMode.updateTitle(
             getString(
@@ -187,5 +204,5 @@ class NotesFragment : Fragment() {
                 tracker.selection.size()
             )
         )
-    }
+    }*/
 }

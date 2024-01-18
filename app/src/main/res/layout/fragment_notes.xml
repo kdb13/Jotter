@@ -22,18 +22,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_notes"
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recycler_view_notes"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:hasFixedSize="@{true}"-->
+<!--                android:padding="@dimen/padding_recycler_view_notes"-->
+<!--                android:scrollbars="vertical"-->
+<!--                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"-->
+<!--                app:spanCount="@integer/grid_cols_recycler_view_notes"-->
+<!--                tools:listitem="@layout/list_item_note"-->
+<!--                tools:visibility="gone" />-->
+
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/notes_compose_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:hasFixedSize="@{true}"
-                android:padding="@dimen/padding_recycler_view_notes"
-                android:scrollbars="vertical"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:spanCount="@integer/grid_cols_recycler_view_notes"
-                tools:listitem="@layout/list_item_note"
-                tools:visibility="gone" />
+                android:layout_height="match_parent" />
 
             <LinearLayout
                 android:id="@+id/empty_state_notes"
@@ -43,16 +48,15 @@
                 android:orientation="vertical"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:visibility="gone"
                 tools:visibility="visible">
 
                 <TextView
-                    style="@style/TextStyle.Jotter.Subtitle1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_empty_state_tagline" />
 
                 <TextView
-                    style="@style/TextStyle.Jotter.Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_empty_state_message"
